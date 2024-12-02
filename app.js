@@ -65,6 +65,7 @@ window.Webflow.push(() => {
     for (let i = 0; i < p_selection.length; i++) {
       p_selection[i].addEventListener("click", (e) => {
         console.log(e.target.innerText);
+        console.log(p_selection[i]);
 
         // show check -mark
         document.querySelectorAll(".check-mark")[i].style.display =
