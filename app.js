@@ -1,70 +1,139 @@
 "use strict";
 
 window.Webflow ||= [];
-window.Webflow.push(() => {  
-	alert("hello world");
-	console.log("hello world");
+window.Webflow.push(() => {
+  alert("hello world");
+  console.log("hello world");
+
+  // Your code goes here
+  $(document).ready(function () {
+    // Set default
+    document.querySelectorAll(".paragraph-desc-selection").forEach((item) => {
+      item.style.display = "none";
+    });
+    // Hide all check mark
+    $(".check-mark").hide();
+    // Only show inverter
+    document.querySelectorAll(".cms-item")?.forEach((i) => {
+      if (
+        i.querySelectorAll(".heading_product")[0].innerText ==
+        "BLUETTI AC500 + B300s"
+      ) {
+        i.style.display = "inline-block";
+      } else {
+        i.style.display = "none";
+      }
+    });
+
+    // Dynamic selection
+
+    let i_selection = document.querySelectorAll(".inverter-selection");
+    for (let i = 0; i < i_selection.length; i++) {
+      console.log(i);
+      i_selection[i].addEventListener("click", (e) => {
+        console.log(e.target.innerText);
+
+        // show check -mark
+        console.log(i);
+        document.querySelectorAll(".check-mark")[i].style.display =
+          "inline-block";
+
+        //paragraph-desc-selection
+        console.log(
+          document
+            .querySelectorAll(".paragraph-desc-selection")
+            [i].checkVisibility()
+        );
+        document.querySelectorAll(".paragraph-desc-selection")[
+          i
+        ].style.display = "inline-block";
+
+        document.querySelectorAll(".cms-item")?.forEach((i) => {
+          if (
+            i.querySelectorAll(".heading_product")[0].innerText ===
+            e.target.innerText
+          ) {
+            i.style.display = "inline-block";
+          } else {
+            i.style.display = "none";
+          }
+        });
+      });
+    }
+
+    let p_selection = document.querySelectorAll(".panel-selection");
+    for (let i = 0; i < p_selection.length; i++) {
+      p_selection[i].addEventListener("click", (e) => {
+        console.log(e.target.innerText);
+
+        // show check -mark
+        document.querySelectorAll(".check-mark")[i].style.display =
+          "inline-block";
+
+        //paragraph-desc-selection
+        console.log(
+          document
+            .querySelectorAll(".paragraph-desc-selection")
+            [i].checkVisibility()
+        );
+        document.querySelectorAll(".paragraph-desc-selection")[
+          i
+        ].style.display = "inline-block";
+
+        document.querySelectorAll(".cms-item")?.forEach((i) => {
+          if (
+            i.querySelectorAll(".heading_product")[0].innerText ===
+            e.target.innerText
+          ) {
+            i.style.display = "inline-block";
+          } else {
+            i.style.display = "none";
+          }
+        });
+      });
+    }
+
+    let b_selection = document.querySelectorAll(".battery-selection");
+    for (let i = 0; i < b_selection.length; i++) {
+      b_selection[i].addEventListener("click", (e) => {
+        console.log(e.target.innerText);
+
+        // show check -mark
+        document.querySelectorAll(".check-mark")[i].style.display =
+          "inline-block";
+
+        //paragraph-desc-selection
+        console.log(
+          document
+            .querySelectorAll(".paragraph-desc-selection")
+            [i].checkVisibility()
+        );
+        document.querySelectorAll(".paragraph-desc-selection")[
+          i
+        ].style.display = "inline-block";
+
+        document.querySelectorAll(".cms-item")?.forEach((i) => {
+          if (
+            i.querySelectorAll(".heading_product")[0].innerText ===
+            e.target.innerText
+          ) {
+            i.style.display = "inline-block";
+          } else {
+            i.style.display = "none";
+          }
+        });
+      });
+    }
+  });
 });
+
 window.fsAttributes = window.fsAttributes || [];
 window.fsAttributes.push([
-  'cmsload',
+  "cmsload",
   (listInstances) => {
-    console.log('cmsload Successfully loaded!');
+    console.log("cmsload Successfully loaded!", listInstances);
 
     // The callback passes a `listInstances` array with all the `CMSList` instances on the page.
     const [listInstance] = listInstances;
-
-    // The `renderitems` event runs whenever the list renders items after switching pages.
-    listInstance.on('renderitems', (renderedItems) => {
-      console.log(renderedItems);
-    });
   },
 ]);
-// Store important elements
-// const cmsFilter = document.querySelector("[data-cms-filter]");
-// const cmsFilterLinks = Array.from(
-//   cmsFilter.querySelectorAll("[data-cms-filter-links] a")
-// );
-// const cmsFilterItems = Array.from(
-//   cmsFilter.querySelectorAll("[data-category]")
-// );
- 
-// // create event to be used later
-// const filterEvent = new Event("filter");
- 
-// // GSAP timeline to fade in CMS items
-// const tl = gsap.timeline();
-// tl.from(cmsFilterItems, {
-//   y: 50,
-//   autoAlpha: 0,
-//   stagger: 0.05,
-// });
- 
-// // loop through each link and add a click to it
-// cmsFilterLinks.forEach((link) => {
-//   link.addEventListener("click", (e) => {
-//     e.preventDefault();
-//     const chosenCategory = e.currentTarget.hash.substring(1);
- 
-//     // on each click, loop through cms items and determine if their category is the one we clicked
-//     cmsFilterItems.forEach((item) => {
-// 		console.log(item);
-//       if (
-//         chosenCategory === item.dataset.category ||
-//         chosenCategory === "reset"
-//       ) {
-//         item.style.display = "block";
-//       } else {
-//         item.style.display = "none";
-//       }
-//     });
- 
-//     // dispatch a 'fliter' event
-//     cmsFilter.dispatchEvent(filterEvent);
-//   });
-// });
- 
-// // listen for a 'filter' event on the cmsFliter element and restart the gsap timeline
-// cmsFilter.addEventListener("filter", () => {
-//   tl.restart();
-// });

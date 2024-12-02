@@ -4,15 +4,12 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel app.js",
-    "dev": "webpack --watch --progress"
+    "start": "parcel app.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "parcel": "^2.13.2",
-    "webpack": "^5.96.1",
-    "webpack-cli": "^5.1.4"
+    "parcel": "^2.13.2"
   }
 }
