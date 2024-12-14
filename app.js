@@ -7,134 +7,122 @@ window.Webflow.push(() => {
 
   // Your code goes here
   $(document).ready(function () {
-    // Set default
-    document.querySelectorAll(".paragraph-desc-selection").forEach((item) => {
+    
+    
+    // Set default - Hide arrow
+    document.querySelectorAll(".arrow-to-product").forEach((item) => {
       item.style.display = "none";
     });
-    // Hide all check mark
-    $(".check-mark").hide();
-    // Only show inverter
-    document.querySelectorAll(".cms-item")?.forEach((i) => {
-      if (
-        i.querySelectorAll(".heading_product")[0].innerText ==
-        "BLUETTI AC500 + B300s"
-      ) {
-        i.style.display = "inline-block";
-      } else {
-        i.style.display = "none";
+    
+    // Hover | Arrow pop up
+    let selection = document.querySelectorAll(".collection-item-15");
+    for (let i = 0; i < selection.length; i++) {
+      console.log(selection[i]);
+     	
+      selection[i].addEventListener("mouseover", funcMouseover, false);
+      selection[i].addEventListener("mouseout", funcMouseout, false);
+
+      function funcMouseover(){  
+        selection[i].querySelectorAll(".arrow-to-product").forEach((item) => {
+          item.style.display ="inline-block";
+        });
+      }
+
+      function funcMouseout() {  
+        selection[i].querySelectorAll(".arrow-to-product").forEach((item) => {
+          item.style.display = "none";
+        });
+      }
+    }
+    
+   // Check box | filter
+
+   let batteries = ["BLUETTI B210P Expansion Battery", "BLUETTI B300S Expansion Battery"];
+   let panels = ["BLUETTI PV350 Solar Panel","BLUETTI MP200 Solar Panel"];
+   let inverters = ["BLUETTI AC500 + B300s","BLUETTI AC70P Portable Power Station","BLUETTI AC180P Solar Portable Power Station","BLUETTI AC240P Portable Power Station"];
+   let combo = ["BLUETTI AC500 + B300S + PV350W","BLUETTI AC70P + MP200W","BLUETTI AC70P + MP200W","BLUETTI AC240P + PV350W"];
+   let acc = ["BLUETTI Aviation Plug","BLUETTI MC4 10M Cable","BLUETTI Folding Trolley","BLUETTI Charger 1"];
+   
+   
+   check_box_handle ("panels");
+   check_box_handle ("inverters");
+   check_box_handle ("batteries");
+   check_box_handle ("combo");
+   check_box_handle ("all-products");
+   check_box_handle ("in-stock");
+   check_box_handle ("accessories");
+
+  function matchKeywords (key_search) {
+   for (let i = 0; i < selection.length; i++) {
+    selection[i].querySelectorAll(".key-words-search").forEach((item) => {
+      console.log(item);
+      let name_product = item?.innerText;
+
+      switch (key_search) {
+        
+        case "panels":
+          if ( !panels.include(name_product) ) {
+            selection[i].style.display = "none";
+          } else {
+            selection[i].style.display = "inline-block";
+          }
+          break;
+
+        case "inverters":
+          if ( !inverters.include(name_product) ) {
+            selection[i].style.display = "none";
+          } else {
+            selection[i].style.display = "inline-block";
+          }
+          break;
+
+        case "batteries":
+            if ( !batteries.include(name_product) ) {
+              selection[i].style.display = "none";
+            } else {
+              selection[i].style.display = "inline-block";
+            }
+            break;
+        
+        case "combo":
+          if ( !combo.include(name_product) ) {
+            selection[i].style.display = "none";
+          } else {
+            selection[i].style.display = "inline-block";
+          }
+          break;
+        
+          case "accessories":
+            if ( !acc.include(name_product) ) {
+              selection[i].style.display = "none";
+            } else {
+              selection[i].style.display = "inline-block";
+            }
+            break;
+
+          default:
+            selection[i].style.display =  "inline-block";
+            break;
       }
     });
+   }
+  }
 
-    // Dynamic selection
+   function check_box_handle (key_search){
+   let checkbox = document.querySelector(`input[name=${key_search}]`);
+   checkbox.addEventListener('change', function() {
+     if (this.checked) {
+       console.log("Checkbox is checked..", key_search);
+       matchKeywords();
+       
+     } else {
+       console.log("Checkbox is not checked..", key_search);
+     }
+   });
+  }
 
-    let i_selection = document.querySelectorAll(".inverter-selection");
-    for (let i = 0; i < i_selection.length; i++) {
-      console.log(i);
-      i_selection[i].addEventListener("click", (e) => {
-        console.log(e.target.innerText);
-
-        // show check -mark
-        console.log(i);
-        document.querySelectorAll(".check-mark")[i].style.display =
-          "inline-block";
-
-        //paragraph-desc-selection
-        console.log(
-          document
-            .querySelectorAll(".paragraph-desc-selection")
-            [i].checkVisibility()
-        );
-        document.querySelectorAll(".paragraph-desc-selection")[
-          i
-        ].style.display = "inline-block";
-
-        document.querySelectorAll(".cms-item")?.forEach((i) => {
-          if (
-            i.querySelectorAll(".heading_product")[0].innerText ===
-            e.target.innerText
-          ) {
-            i.style.display = "inline-block";
-          } else {
-            i.style.display = "none";
-          }
-        });
-      });
-    }
-
-    let p_selection = document.querySelectorAll(".panel-selection");
-    for (let i = 0; i < p_selection.length; i++) {
-      p_selection[i].addEventListener("click", (e) => {
-        console.log(e.target.innerText);
-        console.log(p_selection[i]);
-
-        // show check -mark
-        document.querySelectorAll(".check-mark")[i].style.display =
-          "inline-block";
-
-        //paragraph-desc-selection
-        console.log(
-          document
-            .querySelectorAll(".paragraph-desc-selection")
-            [i].checkVisibility()
-        );
-        document.querySelectorAll(".paragraph-desc-selection")[
-          i
-        ].style.display = "inline-block";
-
-        document.querySelectorAll(".cms-item")?.forEach((i) => {
-          if (
-            i.querySelectorAll(".heading_product")[0].innerText ===
-            e.target.innerText
-          ) {
-            i.style.display = "inline-block";
-          } else {
-            i.style.display = "none";
-          }
-        });
-      });
-    }
-
-    let b_selection = document.querySelectorAll(".battery-selection");
-    for (let i = 0; i < b_selection.length; i++) {
-      b_selection[i].addEventListener("click", (e) => {
-        console.log(e.target.innerText);
-
-        // show check -mark
-        document.querySelectorAll(".check-mark")[i].style.display =
-          "inline-block";
-
-        //paragraph-desc-selection
-        console.log(
-          document
-            .querySelectorAll(".paragraph-desc-selection")
-            [i].checkVisibility()
-        );
-        document.querySelectorAll(".paragraph-desc-selection")[
-          i
-        ].style.display = "inline-block";
-
-        document.querySelectorAll(".cms-item")?.forEach((i) => {
-          if (
-            i.querySelectorAll(".heading_product")[0].innerText ===
-            e.target.innerText
-          ) {
-            i.style.display = "inline-block";
-          } else {
-            i.style.display = "none";
-          }
-        });
-      });
+   
     }
   });
 });
 
-window.fsAttributes = window.fsAttributes || [];
-window.fsAttributes.push([
-  "cmsload",
-  (listInstances) => {
-    console.log("cmsload Successfully loaded!", listInstances);
-
-    // The callback passes a `listInstances` array with all the `CMSList` instances on the page.
-    const [listInstance] = listInstances;
-  },
-]);
